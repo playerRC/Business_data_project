@@ -3,36 +3,36 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - rent_tranform
+  - crime_transform
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: rent_extract
+  name: crime_extract
   retry_config: null
   status: executed
   timeout: null
   type: data_loader
   upstream_blocks: []
-  uuid: rent_extract
+  uuid: crime_extract
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
   downstream_blocks:
-  - rent_export
+  - crime_export
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: rent_tranform
+  name: crime_transform
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: transformer
   upstream_blocks:
-  - rent_extract
-  uuid: rent_tranform
-- all_upstream_blocks_executed: true
+  - crime_extract
+  uuid: crime_transform
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks: []
@@ -40,31 +40,31 @@ blocks:
   executor_type: local_python
   has_callback: false
   language: python
-  name: rent_export
+  name: crime_export
   retry_config: null
   status: executed
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - rent_tranform
-  uuid: rent_export
+  - crime_transform
+  uuid: crime_export
 callbacks: []
 concurrency_config: {}
 conditionals: []
-created_at: '2023-11-12 22:03:18.845700+00:00'
+created_at: '2023-11-13 13:17:08.965721+00:00'
 data_integration: null
 description: null
 executor_config: {}
 executor_count: 1
 executor_type: null
 extensions: {}
-name: rent_pipeline
+name: crime_pipeline
 notification_config: {}
 retry_config: {}
 run_pipeline_in_one_process: false
 spark_config: {}
 tags: []
 type: python
-updated_at: '2023-11-15 23:32:33'
-uuid: rent_pipeline
+updated_at: '2023-11-15 23:35:08'
+uuid: crime_pipeline
 widgets: []

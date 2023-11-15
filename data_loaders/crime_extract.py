@@ -16,8 +16,8 @@ def load_data_from_file(*args, **kwargs):
 
     Docs: https://docs.mage.ai/design/data-loading#fileio
     """
-
-    return FileIO().load(file_directories=["business_data_project/data/rent"], encoding='latin-1', sep=';')
+    
+    return FileIO().load(file_directories=["business_data_project/data/crime"], sep = ";")
 
 
 @test
