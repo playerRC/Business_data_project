@@ -34,8 +34,14 @@ def transform(df, *args, **kwargs):
 
     df['annee'] = df['annee'].apply(lambda x: x + 2000)
     
-    df = df[['Code.département', 'annee', 'classe', 'total_nombre_faits', 'moyenne_taux']]
-    #df = df.drop_duplicates()
+    df = df[['Code.département', 'annee', 'classe', 'faits', 'tauxpourmille']]
+
+    df['tauxpourmille'].round(2)
+
+    df.rename(columns={"Code.département": "code_departement"}, inplace=True)
+    df.rename(columns={"faits": "nb_faits"}, inplace=True)
+    df.rename(columns={"tauxpourmille": "taux_pour_1000"}, inplace=True)
+
 
     return df
 

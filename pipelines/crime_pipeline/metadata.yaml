@@ -26,13 +26,13 @@ blocks:
   language: python
   name: crime_transform
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: transformer
   upstream_blocks:
   - crime_extract
   uuid: crime_transform
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: null
   configuration: {}
   downstream_blocks: []
@@ -65,6 +65,6 @@ run_pipeline_in_one_process: false
 spark_config: {}
 tags: []
 type: python
-updated_at: '2023-11-15 23:35:08'
+updated_at: '2023-11-18 17:23:56'
 uuid: crime_pipeline
 widgets: []

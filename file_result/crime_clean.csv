@@ -1,4 +1,4 @@
-Code.département,annee,classe,total_nombre_faits,moyenne_taux
+code_departement,annee,classe,nb_faits,taux_pour_1000
 01,2016,Coups et blessures volontaires,1437,2.2508517053686807
 02,2016,Coups et blessures volontaires,1940,3.6184848620499275
 03,2016,Coups et blessures volontaires,878,2.587040049030007

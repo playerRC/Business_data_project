@@ -35,13 +35,16 @@ def execute_transformer_action(df: pd.DataFrame, *args, **kwargs) -> pd.DataFram
     convert_object_columns(df)
     fill_missing_values_with_median(select_number_columns(df))
 
+    df[['type_logement', 'nb_pieces']] = df['nombre_pieces_homogene'].str.split(" ", n=1, expand = True)
+
+    
     action = build_transformer_action(
         df,
         action_type=ActionType.AVERAGE,
         action_code='',  # Enter filtering condition on rows before aggregation
         arguments=['loyer_moyen', 'surface_moyenne'],  # Enter the columns to compute aggregate over
         axis=Axis.COLUMN,
-        options={'groupby_columns': ['agglomeration', 'Data_year', 'nombre_pieces_homogene']},  # Enter columns to group by
+        options={'groupby_columns': ['agglomeration', 'Data_year', 'type_logement', 'nb_pieces']},  # Enter columns to group by
         outputs=[
             # The number of outputs below must match the number of arguments
             {'uuid': 'average_loyer_m2', 'column_type': 'number_with_decimals'},
@@ -51,14 +54,17 @@ def execute_transformer_action(df: pd.DataFrame, *args, **kwargs) -> pd.DataFram
 
     df = BaseAction(action).execute(df)
 
-    # Sum total for 'nombre_logements' and 'nombre_observations'
-    df['total_nombre_logements'] = df.groupby(['agglomeration', 'Data_year', 'nombre_pieces_homogene'])['nombre_logements'].transform('sum')
-    df['total_nombre_observations'] = df.groupby(['agglomeration', 'Data_year', 'nombre_pieces_homogene'])['nombre_observations'].transform('sum')
-    
-    df = df[['agglomeration', 'Data_year', 'nombre_pieces_homogene', 'average_loyer_m2', 'average_surface', 'total_nombre_logements', 'total_nombre_observations']]
-    df = df.drop_duplicates()
-    df = df.dropna(subset=['nombre_pieces_homogene', 'average_loyer_m2', 'average_surface'])
+    df['average_loyer_m2'].round(2)
+    df['average_surface'].round(2)
 
+    # Sum total for 'nombre_logements' and 'nombre_observations'
+    df['total_nombre_logements'] = df.groupby(['agglomeration', 'Data_year', 'type_logement', 'nb_pieces'])['nombre_logements'].transform('sum')
+    df['total_nombre_observations'] = df.groupby(['agglomeration', 'Data_year', 'type_logement', 'nb_pieces'])['nombre_observations'].transform('sum')
+    
+    df = df[['agglomeration', 'Data_year', 'type_logement', 'nb_pieces', 'average_loyer_m2', 'average_surface', 'total_nombre_logements', 'total_nombre_observations']]
+    df = df.drop_duplicates()
+    df = df.dropna(subset=['average_loyer_m2', 'average_surface'])
+    df.rename(columns={"Data_year": "annee"}, inplace=True)
     
     return df
 
